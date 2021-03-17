@@ -6,6 +6,7 @@ import shortid from 'shortid';
 import Filter from './components/Filter/Filter';
 import useLocalStorage from './components/hooks/useLocalStorage';
 
+
 export default function App() {
   const [contacts, setContacts] = useLocalStorage('contacts', []);
   const [filter, setFilter] = useLocalStorage('filter', '');
@@ -55,3 +56,4 @@ export default function App() {
     </div>
   );
 }
+
