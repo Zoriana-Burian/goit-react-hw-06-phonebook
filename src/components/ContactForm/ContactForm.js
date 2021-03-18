@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import s from './ContactForm.module.css';
-import { connect } from 'react-redux';
-import * as contactActions from '../../redux/actions-phone/actions-phone';
+import { useDispatch } from 'react-redux';
+import contactActions from '../../redux/actions-phone/actions-phone';
 
-const ContactForm = ({ onSubmit }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -25,8 +26,7 @@ const ContactForm = ({ onSubmit }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit(name, number);
-
+    dispatch(contactActions.addContact(name, number));
     setName('');
     setNumber('');
   };
@@ -58,18 +58,21 @@ const ContactForm = ({ onSubmit }) => {
       </button>
     </form>
   );
-}
+};
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: (name, number) => dispatch(contactActions.addContact(name, number))
-
-});
-
-export default connect(null, mapDispatchToProps)(ContactForm);
+export default ContactForm;
 
 ContactForm.propTypes = {
   name: PropTypes.string,
   number: PropTypes.string,
-  onSubmit: PropTypes.func.isRequired,
 };
 
+//REDUX
+
+//import { connect} from 'react-redux';
+
+// const mapDispatchToProps = dispatch => ({
+//   onSubmit: (name, number) => dispatch(contactActions.addContact(name, number)),
+// });
+
+// export default connect(null, mapDispatchToProps)(ContactForm);
