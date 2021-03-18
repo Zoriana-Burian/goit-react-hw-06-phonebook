@@ -31,17 +31,17 @@ ContactList.propType = {
   ),
   OnDeleteContact: PropTypes.func.isRequired,
 };
-// const visibleContacts = () => {
-//     return contacts.filter(contacts =>
-//       contacts.name.toLowerCase().includes(filter.toLowerCase()),
-//     );
-//   };
 
-const mapStateToProps = state => ({
-  
-  contacts: state.contacts.items
+const visibleContacts = (contacts, filter) => {
+  return contacts.filter(contacts =>
+    contacts.name.toLowerCase().includes(filter.toLowerCase()),
+  );
+};
+
+const mapStateToProps = ({ contacts: { items, filter } }) => ({
+  contacts: visibleContacts(items, filter),
 });
 const mapDispatchToProps = dispatch => ({
-  OnDeleteContact: (id)=> dispatch(contactActions.deleteContacts(id))
+  OnDeleteContact: id => dispatch(contactActions.deleteContacts(id)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
